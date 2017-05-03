@@ -1,4 +1,4 @@
-package com.netcracker.crm.excel;
+package com.netcracker.crm.excel.impl;
 
 import com.netcracker.crm.excel.additional.Coordinates;
 import org.apache.poi.ss.usermodel.Cell;
@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Created by AN on 16.04.2017.
  */
-public class ExcelFiller {
+public class DefaultExcelFiller {
     private Workbook workbook;
     private Map<String, List<?>> table;
     private Map<String, Coordinates> coordinatesOfColumns;
@@ -21,7 +21,7 @@ public class ExcelFiller {
     private int cellStart;
 
 
-    public ExcelFiller(Workbook workbook, Map<String, List<?>> table, String sheetName, int rowStart, int cellStart) {
+    public DefaultExcelFiller(Workbook workbook, Map<String, List<?>> table, String sheetName, int rowStart, int cellStart) {
         this.workbook = workbook;
         this.table = table;
         this.sheetName = sheetName;

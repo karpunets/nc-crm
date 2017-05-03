@@ -1,7 +1,7 @@
-package com.netcracker.crm.excel;
+package com.netcracker.crm.excel.impl;
 
+import com.netcracker.crm.excel.ChartBuilder;
 import com.netcracker.crm.excel.additional.Coordinates;
-import com.netcracker.crm.excel.interfaces.ChartBuilder;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.charts.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -46,9 +46,7 @@ public class XSSFChartBuilder implements ChartBuilder {
         lineChart = drawing.createChart(anchor);
         ChartLegend legend = lineChart.getOrCreateLegend();
         legend.setPosition(LegendPosition.BOTTOM);
-        /* Create data for the chart */
         data = lineChart.getChartDataFactory().createLineChartData();
-        /* Define chart AXIS */
         bottomAxis = lineChart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
         leftAxis = lineChart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
         leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
@@ -68,7 +66,6 @@ public class XSSFChartBuilder implements ChartBuilder {
             startRow = coordinates_Y.get(i).getStartRow();
             endRow = coordinates_Y.get(i).getEndRow();
             ys = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(startRow, endRow, startCol, endCol));
-            /* Add chart data sources as data to the chart */
             title = sheet.getRow(startRow-1).getCell(startCol).toString();
             data.addSeries(xs, ys).setTitle(title);
         }

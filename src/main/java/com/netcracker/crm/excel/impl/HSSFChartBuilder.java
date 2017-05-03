@@ -1,7 +1,7 @@
-package com.netcracker.crm.excel;
+package com.netcracker.crm.excel.impl;
 
+import com.netcracker.crm.excel.ChartBuilder;
 import com.netcracker.crm.excel.additional.Coordinates;
-import com.netcracker.crm.excel.interfaces.ChartBuilder;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.List;

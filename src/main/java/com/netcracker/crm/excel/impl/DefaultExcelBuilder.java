@@ -1,8 +1,8 @@
-package com.netcracker.crm.excel;
+package com.netcracker.crm.excel.impl;
 
+import com.netcracker.crm.excel.ChartBuilder;
 import com.netcracker.crm.excel.additional.Coordinates;
 import com.netcracker.crm.excel.additional.ExcelFormat;
-import com.netcracker.crm.excel.interfaces.ChartBuilder;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,20 +14,20 @@ import java.util.List;
 /**
  * Created by AN on 24.04.2017.
  */
-public class ExcelBuilder {
+public class DefaultExcelBuilder {
 
-    public ExcelBuilder(){};
+    public DefaultExcelBuilder(){};
 
-    private ExcelFiller getExcelFiller(ExcelFormat fileFormat, LinkedHashMap<String, List<?>> table, String sheetName) {
+    private DefaultExcelFiller getExcelFiller(ExcelFormat fileFormat, LinkedHashMap<String, List<?>> table, String sheetName) {
         int tableRowStart = 1;
         int tableCellStart = 0;
         switch (fileFormat) {
             case XLS:
-                return new ExcelFiller(new HSSFWorkbook(), table, sheetName, tableRowStart, tableCellStart);
+                return new DefaultExcelFiller(new HSSFWorkbook(), table, sheetName, tableRowStart, tableCellStart);
             case XLSX:
-                return new ExcelFiller(new XSSFWorkbook(), table, sheetName, tableRowStart, tableCellStart);
+                return new DefaultExcelFiller(new XSSFWorkbook(), table, sheetName, tableRowStart, tableCellStart);
             default:
-                return new ExcelFiller(new XSSFWorkbook(), table, sheetName, tableRowStart, tableCellStart);
+                return new DefaultExcelFiller(new XSSFWorkbook(), table, sheetName, tableRowStart, tableCellStart);
         }
     }
 
@@ -47,12 +47,12 @@ public class ExcelBuilder {
     }
 
     public Workbook getWorkbookChart(ExcelFormat fileFormat, LinkedHashMap<String, List<?>> table, String sheetName, String xColumnName, List<String> yColumnName){
-        ExcelFiller excelFiller = getExcelFiller(fileFormat, table, sheetName);
-        Workbook workbook = excelFiller.fillExcel();
-        Coordinates coordinates_X = excelFiller.getCoordinatesOfColumns().get(xColumnName);
+        DefaultExcelFiller defaultExcelFiller = getExcelFiller(fileFormat, table, sheetName);
+        Workbook workbook = defaultExcelFiller.fillExcel();
+        Coordinates coordinates_X = defaultExcelFiller.getCoordinatesOfColumns().get(xColumnName);
         ArrayList<Coordinates> coordinates_Y = new ArrayList<Coordinates>();
         for (String string : yColumnName){
-            coordinates_Y.add(excelFiller.getCoordinatesOfColumns().get(string));
+            coordinates_Y.add(defaultExcelFiller.getCoordinatesOfColumns().get(string));
         }
         ChartBuilder chartBuilder = getChartBuilder(fileFormat, workbook, coordinates_X, coordinates_Y);
         chartBuilder.buildChart();
